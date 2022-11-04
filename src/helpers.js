@@ -23,7 +23,7 @@ const setID = async () => {
     return lastID + 1;
   };
 
-const updater = async (talker) => {
+const talkerUpdater = async (talker) => {
     const fileContent = await readerJSON();
     const fileUpdated = fileContent.map((t) => {
         if (t.id === talker.id) return talker;
@@ -35,9 +35,19 @@ const updater = async (talker) => {
 );
 };
 
+const talkerEraser = async (id) => {
+    const fileContent = await readerJSON();
+    const fileUpdated = fileContent.find((t) => t.id !== id);
+    await fs.writeFile(
+        join(__dirname, './talker.json'),
+        JSON.stringify(fileUpdated, 4),
+    );
+};
+
 module.exports = {
     readerJSON,
     writerJSON,
     setID,
-    updater,
+    talkerUpdater,
+    talkerEraser,
 };

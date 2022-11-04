@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { readerJSON, writerJSON, setID, updater } = require('../helpers');
+const { readerJSON, writerJSON, setID, talkerUpdater, talkerEraser } = require('../helpers');
 
 const {
   tokenValidator,
@@ -48,8 +48,16 @@ async (req, res) => {
   const { id } = req.params;
   const talkerBody = req.body;
   const talker = { id: +id, ...talkerBody };
-  await updater(talker);
+  await talkerUpdater(talker);
   res.status(201).json(talker);
+});
+
+router.delete('/:id',
+tokenValidator,
+async (req, res) => {
+  const { id } = req.params;
+  await talkerEraser(+id);
+res.sendStatus(204);
 });
 
 module.exports = router;
