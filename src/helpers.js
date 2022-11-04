@@ -9,6 +9,14 @@ const readerJSON = async () => {
     return fileContent;
 };
 
+const writerJSON = async (reader) => {
+    const contentJSON = await readerJSON();
+    await fs.writeFile(
+        join(__dirname, './talker.json'), JSON.stringify([...contentJSON, reader], 4),
+);
+};
+
 module.exports = {
     readerJSON,
+    writerJSON,
 };
