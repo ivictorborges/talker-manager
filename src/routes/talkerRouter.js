@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { readerJSON, writerJSON, setID } = require('../helpers');
+const { readerJSON, writerJSON, setID, updater } = require('../helpers');
 
 const {
   tokenValidator,
@@ -34,6 +34,21 @@ async (req, res) => {
   const talkerBody = req.body;
   const talker = { id: await setID(), ...talkerBody };
   await writerJSON(talker);
+  res.status(201).json(talker);
+});
+
+router.put('/:id',
+tokenValidator,
+nameValidator,
+ageValidator,
+talkValidator,
+rateValidator,
+watchedAtValidator,
+async (req, res) => {
+  const { id } = req.params;
+  const talkerBody = req.body;
+  const talker = { id: +id, ...talkerBody };
+  await updater(talker);
   res.status(201).json(talker);
 });
 

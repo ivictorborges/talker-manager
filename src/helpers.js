@@ -12,7 +12,8 @@ const readerJSON = async () => {
 const writerJSON = async (talker) => {
     const fileContent = await readerJSON();
     await fs.writeFile(
-        join(__dirname, './talker.json'), JSON.stringify([...fileContent, talker], 4),
+        join(__dirname, './talker.json'),
+        JSON.stringify([...fileContent, talker], 4),
 );
 };
 
@@ -22,8 +23,21 @@ const setID = async () => {
     return lastID + 1;
   };
 
+const updater = async (talker) => {
+    const fileContent = await readerJSON();
+    const fileUpdated = fileContent.map((t) => {
+        if (t.id === talker.id) return talker;
+        return t;
+    });
+    await fs.writeFile(
+        join(__dirname, './talker.json'),
+        JSON.stringify(fileUpdated, 4),
+);
+};
+
 module.exports = {
     readerJSON,
     writerJSON,
     setID,
+    updater,
 };
