@@ -65,7 +65,7 @@ async (req, res) => {
   const talkerBody = req.body;
   const talker = { id: +id, ...talkerBody };
   await talkerUpdater(talker);
-  res.status(201).json(talker);
+  res.status(200).json(talker);
 });
 
 router.delete('/:id',
