@@ -1,6 +1,15 @@
 const express = require('express');
 
-const { readerJSON } = require('../helpers');
+const { readerJSON, writerJSON, setID } = require('../helpers');
+
+const {
+  tokenValidator,
+  nameValidator,
+  ageValidator,
+  talkValidator,
+  rateValidator,
+  watchedAtValidator,
+} = require('../middlewares');
 
 const router = express.Router();
 
@@ -13,5 +22,19 @@ router.get('/:id', async (req, res) => {
     if (!talkerFinded) res.status(404).json({ message: 'Pessoa palestrante não encontrada' });
     res.status(200).json(talkerFinded);
   });
+
+router.post('/',
+tokenValidator,
+nameValidator,
+ageValidator,
+talkValidator,
+rateValidator,
+watchedAtValidator,
+async (req, res) => {
+  const talkerBody = req.body;
+  const talker = { id: await setID(), ...talkerBody };
+  await writerJSON(talker);
+  res.status(201).json(talker);
+});
 
 module.exports = router;
