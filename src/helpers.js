@@ -44,10 +44,18 @@ const talkerEraser = async (id) => {
     );
 };
 
+const talkerFinder = async (query) => {
+    const fileContent = await readerJSON();
+    const talkerList = fileContent
+      .filter((t) => !query || t.name.includes(query));
+    return talkerList;
+  };
+
 module.exports = {
     readerJSON,
     writerJSON,
     setID,
     talkerUpdater,
     talkerEraser,
+    talkerFinder,
 };

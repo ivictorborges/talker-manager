@@ -1,6 +1,12 @@
 const express = require('express');
 
-const { readerJSON, writerJSON, setID, talkerUpdater, talkerEraser } = require('../helpers');
+const {
+  readerJSON,
+  writerJSON,
+  setID,
+  talkerUpdater,
+  talkerEraser,
+  talkerFinder } = require('../helpers');
 
 const {
   tokenValidator,
@@ -12,6 +18,16 @@ const {
 } = require('../middlewares');
 
 const router = express.Router();
+
+router.get(
+  '/search',
+  tokenValidator,
+  async (req, res) => {
+    const { q } = req.query;
+    const talkerList = await talkerFinder(q);
+    res.status(200).json(talkerList);
+  },
+);
 
 router.get('/', async (_req, res) => res.status(200).json(await readerJSON()));
 
