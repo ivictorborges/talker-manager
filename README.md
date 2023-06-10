@@ -3,7 +3,7 @@
 ## About :grey_question:
 
 Is an application where we can manage talkers ... creating, reading, searching, editing and deleting information about them.
-For that, we have an API to support us to do a CRUD.
+For that, we have a REST API, using <i>Node.js</i> and <i>Express</i> to support us to do a CRUD.
 
 ## Tecnologies used :gear:
 
