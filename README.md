@@ -5,7 +5,7 @@
 Is an application where we can manage talkers ... creating, reading, searching, editing and deleting information about them.
 For that, we have a REST API, using <i>Node.js</i> and <i>Express</i> to support us to do a CRUD.
 
-## Tecnologies used :gear:
+## Technologies used :gear:
 
 <strong><h3>Back-end :</h3></strong>
 > Docker, Docker Compose, Node.js, JavaScript, Express, Nodemon
